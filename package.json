@@ -1,20 +1,27 @@
 {
-  "name": "hanuman-mvp-shop",
+  "name": "hanuman-license-shop",
   "private": true,
-  "type": "module",
+  "version": "0.1.0",
   "scripts": {
-    "dev": "concurrently \"vite\" \"node server.js\"",
-    "build": "vite build",
-    "preview": "vite preview",
-    "start": "node server.js"
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "framer-motion": "^10.18.0",
+    "lucide-react": "^0.452.0",
+    "next": "14.2.5",
+    "qrcode": "^1.5.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "concurrently": "^8.2.2",
-    "vite": "^5.4.0"
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.3"
   }
 }
