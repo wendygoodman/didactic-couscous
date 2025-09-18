@@ -203,21 +203,21 @@ export default function App() {
           </div>
         </div>
 
-        {/* Search / Filters / Sorting */}
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {/* Search / Filters / Sorting (aligned) */}
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 items-start">
           {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+          <div className="relative self-start">
+            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search products, features, categories..."
-              className="w-full pl-9 rounded-2xl bg-zinc-900/60 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600 px-3 py-2"
+              className="h-10 w-full rounded-2xl border border-zinc-800 bg-zinc-900/60 px-3 pl-10 focus:outline-none focus:ring-2 focus:ring-zinc-600"
             />
           </div>
 
           {/* Categories + Lifetime */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 self-start">
             <div className="flex items-center justify-between">
               <span className="text-sm text-zinc-400">Filters</span>
               {(selectedCats.length > 0 || onlyLifetime) && (
@@ -266,7 +266,7 @@ export default function App() {
           </div>
 
           {/* Sorting */}
-          <div className="flex items-center gap-2">
+          <div className="self-start">
             <div className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/50 px-3 py-2">
               <div className="text-sm mb-1 inline-flex items-center gap-1">
                 <ArrowUpDown className="h-4 w-4" /> Sort by
