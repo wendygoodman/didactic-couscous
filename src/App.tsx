@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Search, Table, LayoutGrid, ArrowUpDown, RefreshCcw, Download, Copy as CopyIcon } from 'lucide-react'
 
@@ -75,6 +75,19 @@ export default function App() {
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
   const [copiedName, setCopiedName] = useState<string | null>(null)
+
+  // Set favicon to /hanuman-logo.png
+  useEffect(() => {
+    const href = '/hanuman-logo.png'
+    let link = document.querySelector("link[rel='icon']") as HTMLLinkElement | null
+    if (!link) {
+      link = document.createElement('link')
+      link.rel = 'icon'
+      link.type = 'image/png'
+      document.head.appendChild(link)
+    }
+    link.href = href
+  }, [])
 
   const filtered = useMemo(() => {
     let list = PRODUCTS.filter(p =>
@@ -172,18 +185,30 @@ export default function App() {
         .cardFX:hover::after{opacity:1}
         .priceFx{font-weight:800;color:${MATCHA};text-shadow:0 0 8px rgba(189,236,198,.25);transition:text-shadow .15s ease,filter .15s ease,font-weight .15s ease}
         .priceFx:hover{font-weight:900;text-shadow:0 0 16px rgba(189,236,198,.6),0 0 32px rgba(189,236,198,.4);filter:drop-shadow(0 0 10px rgba(189,236,198,.35))}
+
         /* Header buttons (MVP hover glow) */
         .nav-btn{padding:.5rem 1rem;border-radius:9999px;border:1px solid rgb(63 63 70);background:rgba(24,24,27,.6);transition:all .2s ease}
         .nav-btn:hover{background:#18181b;border-color:${MATCHA};color:${MATCHA};box-shadow:0 0 12px rgba(189,236,198,.4)}
+
+        /* Brand glow (white) */
+        .logo-glow{
+          text-shadow:0 0 6px rgba(255,255,255,.8), 0 0 14px rgba(255,255,255,.5), 0 0 22px rgba(255,255,255,.35);
+          animation: glowPulse 3s ease-in-out infinite;
+        }
+        @keyframes glowPulse{
+          0%   { text-shadow:0 0 6px rgba(255,255,255,.6), 0 0 12px rgba(255,255,255,.35); }
+          50%  { text-shadow:0 0 10px rgba(255,255,255,1), 0 0 22px rgba(255,255,255,.7), 0 0 36px rgba(255,255,255,.45); }
+          100% { text-shadow:0 0 6px rgba(255,255,255,.6), 0 0 12px rgba(255,255,255,.35); }
+        }
       `}</style>
 
       {/* Sticky Header with Logo + Brand + Nav */}
       <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
           <a href="/" className="flex items-center gap-3">
-            {/* Put your logo at /public/hanuman-logo.png */}
+            {/* Ensure this file exists in /public */}
             <img src="/hanuman-logo.png" alt="Hanuman License" className="h-10 w-10 rounded-full" />
-            <span className="font-bold tracking-wide text-lg">Hanuman License</span>
+            <span className="font-bold tracking-wide text-lg logo-glow">Hanuman License</span>
           </a>
           <nav className="flex items-center gap-3">
             <a className="nav-btn" href="https://hanuman.astck.io/" target="_blank" rel="noopener noreferrer">Shop</a>
@@ -193,7 +218,7 @@ export default function App() {
       </header>
 
       <div className="mx-auto max-w-7xl px-4 py-10">
-        {/* Header of section */}
+        {/* Section header */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Pricing Catalog</h1>
