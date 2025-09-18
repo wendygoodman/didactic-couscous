@@ -203,69 +203,68 @@ export default function App() {
           </div>
         </div>
 
-        {/* Search / Filters / Sorting (aligned) */}
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 items-start">
-          {/* Search */}
-          <div className="relative self-start">
-            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search products, features, categories..."
-              className="h-10 w-full rounded-2xl border border-zinc-800 bg-zinc-900/60 px-3 pl-10 focus:outline-none focus:ring-2 focus:ring-zinc-600"
-            />
-          </div>
-
-          {/* Categories + Lifetime */}
-          <div className="flex flex-col gap-2 self-start">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-zinc-400">Filters</span>
-              {(selectedCats.length > 0 || onlyLifetime) && (
-                <button
-                  onClick={clearFilters}
-                  className="text-xs px-2 py-1 rounded-full border border-zinc-700 bg-zinc-900/60 hover:bg-zinc-800/70 transition"
-                >
-                  Clear filters
-                </button>
-              )}
-            </div>
-
-            {/* Category chips */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((c) => {
-                const active = selectedCats.includes(c)
-                return (
-                  <button
-                    key={c}
-                    onClick={() =>
-                      setSelectedCats(
-                        active ? selectedCats.filter((sc) => sc !== c) : [...selectedCats, c]
-                      )
-                    }
-                    className={`px-3 py-1 rounded-full border text-sm transition ${
-                      active
-                        ? 'bg-zinc-700 border-zinc-500 text-white'
-                        : 'bg-zinc-900/50 border-zinc-800 text-zinc-300 hover:bg-zinc-800/70'
-                    }`}
-                  >
-                    {c}
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Lifetime toggle */}
-            <label className="inline-flex items-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 w-fit">
+        {/* Search + Filters on the left, Sorting on the right */}
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 items-start">
+          {/* LEFT: Search on top, Filters below */}
+          <div className="flex flex-col gap-4 sm:col-span-2">
+            {/* Search */}
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
               <input
-                type="checkbox"
-                checked={onlyLifetime}
-                onChange={(e) => setOnlyLifetime(e.target.checked)}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search products, features, categories..."
+                className="h-10 w-full rounded-2xl border border-zinc-800 bg-zinc-900/60 px-3 pl-10 focus:outline-none focus:ring-2 focus:ring-zinc-600"
               />
-              <span>Lifetime only</span>
-            </label>
+            </div>
+
+            {/* Filters under search */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-zinc-400">Filters</span>
+                {(selectedCats.length > 0 || onlyLifetime) && (
+                  <button
+                    onClick={clearFilters}
+                    className="text-xs px-2 py-1 rounded-full border border-zinc-700 bg-zinc-900/60 hover:bg-zinc-800/70 transition"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((c) => {
+                  const active = selectedCats.includes(c)
+                  return (
+                    <button
+                      key={c}
+                      onClick={() =>
+                        setSelectedCats(
+                          active ? selectedCats.filter((sc) => sc !== c) : [...selectedCats, c]
+                        )
+                      }
+                      className={`px-3 py-1 rounded-full border text-sm transition ${
+                        active
+                          ? 'bg-zinc-700 border-zinc-500 text-white'
+                          : 'bg-zinc-900/50 border-zinc-800 text-zinc-300 hover:bg-zinc-800/70'
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  )
+                })}
+              </div>
+              <label className="inline-flex items-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 w-fit">
+                <input
+                  type="checkbox"
+                  checked={onlyLifetime}
+                  onChange={(e) => setOnlyLifetime(e.target.checked)}
+                />
+                <span>Lifetime only</span>
+              </label>
+            </div>
           </div>
 
-          {/* Sorting */}
+          {/* RIGHT: Sorting */}
           <div className="self-start">
             <div className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/50 px-3 py-2">
               <div className="text-sm mb-1 inline-flex items-center gap-1">
