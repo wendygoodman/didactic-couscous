@@ -172,10 +172,28 @@ export default function App() {
         .cardFX:hover::after{opacity:1}
         .priceFx{font-weight:800;color:${MATCHA};text-shadow:0 0 8px rgba(189,236,198,.25);transition:text-shadow .15s ease,filter .15s ease,font-weight .15s ease}
         .priceFx:hover{font-weight:900;text-shadow:0 0 16px rgba(189,236,198,.6),0 0 32px rgba(189,236,198,.4);filter:drop-shadow(0 0 10px rgba(189,236,198,.35))}
+        /* Header buttons (MVP hover glow) */
+        .nav-btn{padding:.5rem 1rem;border-radius:9999px;border:1px solid rgb(63 63 70);background:rgba(24,24,27,.6);transition:all .2s ease}
+        .nav-btn:hover{background:#18181b;border-color:${MATCHA};color:${MATCHA};box-shadow:0 0 12px rgba(189,236,198,.4)}
       `}</style>
 
+      {/* Sticky Header with Logo + Brand + Nav */}
+      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black/80 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-3">
+            {/* Put your logo at /public/hanuman-logo.png */}
+            <img src="/hanuman-logo.png" alt="Hanuman License" className="h-10 w-10 rounded-full" />
+            <span className="font-bold tracking-wide text-lg">Hanuman License</span>
+          </a>
+          <nav className="flex items-center gap-3">
+            <a className="nav-btn" href="https://hanuman.astck.io/" target="_blank" rel="noopener noreferrer">Shop</a>
+            <a className="nav-btn" href="https://t.me/hanumanlicense" target="_blank" rel="noopener noreferrer">Contact</a>
+          </nav>
+        </div>
+      </header>
+
       <div className="mx-auto max-w-7xl px-4 py-10">
-        {/* Header */}
+        {/* Header of section */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Pricing Catalog</h1>
@@ -203,11 +221,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* Search + Filters on the left, Sorting on the right */}
+        {/* Search + Filters (left) | Sorting (right) */}
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 items-start">
-          {/* LEFT: Search on top, Filters below */}
+          {/* LEFT: Search + Filters under it */}
           <div className="flex flex-col gap-4 sm:col-span-2">
-            {/* Search */}
             <div className="relative">
               <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
               <input
@@ -218,7 +235,6 @@ export default function App() {
               />
             </div>
 
-            {/* Filters under search */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-zinc-400">Filters</span>
@@ -231,6 +247,7 @@ export default function App() {
                   </button>
                 )}
               </div>
+
               <div className="flex flex-wrap gap-2">
                 {categories.map((c) => {
                   const active = selectedCats.includes(c)
@@ -253,6 +270,7 @@ export default function App() {
                   )
                 })}
               </div>
+
               <label className="inline-flex items-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 w-fit">
                 <input
                   type="checkbox"
@@ -295,7 +313,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Active filter chips row */}
         {(selectedCats.length > 0 || onlyLifetime) && (
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {selectedCats.map((c) => (
@@ -311,7 +328,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Content */}
         {view === 'grid' ? (
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence>
